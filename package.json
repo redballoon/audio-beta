@@ -1,0 +1,11 @@
+{
+  "name": "Audio-Beta",
+  "version": "0.1.0",
+  "description": "lorem ipsum",
+  "devDependencies": {
+    "cylon": "^1.2.0",
+    "cylon-audio": "^0.9.0",
+    "fft-js": "0.0.9"
+  },
+  "dependencies": {}
+}
