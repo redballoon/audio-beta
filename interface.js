@@ -14,6 +14,29 @@ var options = {
 	max_freq : 15000,
 	chunk_size : 2048// use multiple of 8
 };
+
+var methods = {
+	////////////////////////
+	// attempt to play wav
+	////////////////////////
+	wave_test : function (my) {
+		var path = './assets/audio-sample.wav';
+		my.connections.audio.speaker = new speaker({
+			channels: 1,
+			bitDepth: 16,
+			sampleRate: 8000
+		});
+		var readStream = fs.createReadStream(path);
+		readStream.pipe(my.audio.connection.speaker);
+	},
+	mp3_test : function (my) {
+		var path = './assets/audio-sample.mp3';
+		my.audio.on('playing', function(song){
+			console.log('Playing this nice tune: "' + song + '"');
+		});
+		my.connections.audio.play(path);
+	}
+};
 cylon.robot({
 	connections: {
 		//arduino: { adaptor : 'firmata', port: '/dev/cu.usbmodem1421' },
@@ -27,23 +50,16 @@ cylon.robot({
 		
 		////////////////////////
 		// attempt to play wav
+		// low quality
 		////////////////////////
-		var path = './assets/audio-sample.wav';
-		my.connections.audio.speaker = new speaker({
-			channels: 1,
-			bitDepth: 16,
-			sampleRate: 8000
-		});
-		var readStream = fs.createReadStream(path);
-		readStream.pipe(my.audio.connection.speaker);
+		//methods.wave_test();
 		////////////////////////
 		
-		
-		//my.audio.on('playing', function(song){
-			//console.log('Playing this nice tune: "' + song + '"');
-		//});
-		
-		//my.connections.audio.play(path);
+		////////////////////////
+		// attempt to play mp3
+		////////////////////////
+		methods.mp3_test();
+		////////////////////////
 		
 		//var buff = new Buffer(1024 * ((16 / 8) * 1));
 		//my.pin.analogWrite(1);
