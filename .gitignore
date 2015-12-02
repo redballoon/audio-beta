@@ -19,6 +19,7 @@ CVS
 
 # other custom
 node_modules/*
+npm-debug.log
 
 # project custom
 build/cache/*
