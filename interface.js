@@ -52,13 +52,13 @@ cylon.robot({
 		// attempt to play wav
 		// low quality
 		////////////////////////
-		//methods.wave_test();
+		//methods.wave_test(my);
 		////////////////////////
 		
 		////////////////////////
 		// attempt to play mp3
 		////////////////////////
-		methods.mp3_test();
+		methods.mp3_test(my);
 		////////////////////////
 		
 		//var buff = new Buffer(1024 * ((16 / 8) * 1));
