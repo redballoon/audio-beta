@@ -16,34 +16,37 @@ var options = {
 };
 cylon.robot({
 	connections: {
-		arduino: { adaptor : 'firmata', port: '/dev/cu.usbmodem1421' },
+		//arduino: { adaptor : 'firmata', port: '/dev/cu.usbmodem1421' },
 		audio: { adaptor: 'audio' }
 	},
 	devices: {
-		audio: { driver: 'audio' },
-		pin: { driver: 'direct-pin', pin : 4 }
+		audio: { driver: 'audio' }//,
+		//pin: { driver: 'direct-pin', pin : 4 }
 	},
 	work: function(my) {
+		
+		////////////////////////
+		// attempt to play wav
+		////////////////////////
+		var path = './assets/audio-sample.wav';
+		my.connections.audio.speaker = new speaker({
+			channels: 1,
+			bitDepth: 16,
+			sampleRate: 8000
+		});
+		var readStream = fs.createReadStream(path);
+		readStream.pipe(my.audio.connection.speaker);
+		////////////////////////
+		
+		
 		//my.audio.on('playing', function(song){
 			//console.log('Playing this nice tune: "' + song + '"');
 		//});
 		
-		
-		var path = './assets/audio-sample.mp3';
-		
-		my.connections.audio.speaker = new speaker({
-			channels: 1,
-			bitDepth: 16,
-			sampleRate: 88200
-		});
-		
-		var buff = new Buffer(1024 * ((16 / 8) * 1));
-		
 		//my.connections.audio.play(path);
 		
-		my.pin.analogWrite(1);
-		
-		//console.log();
+		//var buff = new Buffer(1024 * ((16 / 8) * 1));
+		//my.pin.analogWrite(1);
 		
 		//44100
 		// 2 channels
@@ -52,14 +55,9 @@ cylon.robot({
 		
 		//console.log(my.audio.connection.decoder);
 		
-		
-		
-		//my.audio.play(path);
-		
 		/*
 		var readStream = fs.createReadStream(path);
 		readStream.pipe(my.audio.connection.decoder);
-		
 		setTimeout(function () {
 			var buffer = my.audio.connection.decoder._readableState.buffer;
 			var phasors = fft(buffer[0]);
