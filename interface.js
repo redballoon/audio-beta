@@ -21,18 +21,43 @@ var methods = {
 	////////////////////////
 	wave_test : function (my) {
 		var path = './assets/audio-sample.wav';
-		my.connections.audio.speaker = new speaker({
+		//my.connections.audio.speaker
+		var spk = new speaker({
 			channels: 1,
 			bitDepth: 16,
-			sampleRate: 8000
+			sampleRate: 8000,
+			signed: true
 		});
 		var readStream = fs.createReadStream(path);
-		readStream.pipe(my.audio.connection.speaker);
+		readStream.pipe(spk);
+	},
+	wave_test_2 : function (my) {
+		var path = './assets/laugh.wav';
+		var spk = new speaker({
+			channels: 1,
+			bitDepth: 16,
+			sampleRate: 48000,
+			signed: true
+		});
+		var readStream = fs.createReadStream(path);
+		readStream.pipe(spk);
 	},
 	mp3_test : function (my) {
 		var path = './assets/audio-sample.mp3';
 		my.audio.on('playing', function(song){
 			console.log('Playing this nice tune: "' + song + '"');
+		});
+		my.connections.audio.play(path);
+	},
+	mp3_test_2 : function (my) {
+		var path = './assets/audio-sample.mp3';
+		my.audio.on('playing', function(song){
+			console.log('Playing this nice tune: "' + song + '"');
+		});
+		my.connections.audio.speaker = new speaker({
+			channels: 1,
+			bitDepth: 16,
+			signed: true
 		});
 		my.connections.audio.play(path);
 	}
